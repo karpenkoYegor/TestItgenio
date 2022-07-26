@@ -10,12 +10,9 @@ const removeBoard = ({ _id }) => {
 }
 
 export const App = () => {
-
-
     const boards = useTracker(() => {
         Meteor.subscribe('rooms');
-        const boards = RoomsCollection.find({}).fetch();
-        return boards;
+        return RoomsCollection.find({}).fetch();
     });
     const [roomBoardId, setRoomBoardId] = useState();
     const changeBoard = ({ _id }) => {
@@ -25,14 +22,12 @@ export const App = () => {
     return (
         <div>
             <div className="paint">
-                <React.StrictMode>
                     <MenuBoards boards={boards} changeBoard={changeBoard} removeBoard={removeBoard}/>
                     {
                         roomBoardId !== undefined
                             ? <PaintBoard key={'PaintBoard'+roomBoardId} board={boards.find(b => b._id === roomBoardId)} />
-                            : <div>...Loading</div>
+                            : <div>Выберите комнату</div>
                     }
-                </React.StrictMode>
             </div>
         </div>
     );

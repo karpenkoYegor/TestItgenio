@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
-
+import { Meteor } from 'meteor/meteor';
+import {useTracker} from "meteor/react-meteor-data";
 const Cell = ({startColor, board, indexCol, indexRow}) => {
-    const [isWhite, setIsWhite] = useState(startColor);
+
+    let color = useTracker(() => {
+        return startColor;
+    });
+
     const handleInverse = e => {
         e.preventDefault();
-        setIsWhite(!isWhite);
-        board.roomProps.colors[indexRow][indexCol] = !isWhite;
+        color = !color;
+        board.roomProps.colors[indexRow][indexCol] = color;
         Meteor.call('cell.invertColor', board._id, board);
     }
 
@@ -15,7 +20,7 @@ const Cell = ({startColor, board, indexCol, indexRow}) => {
             onClick={handleInverse}
             style={
                 {
-                    backgroundColor: isWhite ? "white" : "black"
+                    backgroundColor: color ? "white" : "black"
                 }
             }>
         </div>

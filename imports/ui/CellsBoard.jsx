@@ -5,7 +5,7 @@ const CellsBoard = ({board}) => {
         <div>
             {console.log(board.roomProps.colors)}
             {board.roomProps.colors.map((boardRow, indexRow) =>
-                <div key={board._id+"row"+indexRow.toString()} className="boardRow">
+                <div key={board._id+"row"+indexRow.toString()} className="row">
                     {
                         boardRow.map((boardColor, indexCol) =>
                             <Cell

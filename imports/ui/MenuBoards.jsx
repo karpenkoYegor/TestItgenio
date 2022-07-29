@@ -6,7 +6,7 @@ const MenuBoards = ({boards, changeBoard, removeBoard}) => {
     return (
         <div className="menu">
             <BoardForm/>
-            <ul>
+            <ul className="list-group">
                 {boards.map(board =>
                     <BoardRoom
                         key={board._id+board.roomProps.name}

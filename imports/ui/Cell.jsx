@@ -16,7 +16,7 @@ const Cell = ({startColor, board, indexCol, indexRow}) => {
 
     return (
         <div
-            className="cell"
+            className="col cell"
             onClick={handleInverse}
             style={
                 {

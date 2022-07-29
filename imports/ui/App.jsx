@@ -2,12 +2,9 @@ import React, {useState} from 'react';
 import {useTracker} from "meteor/react-meteor-data";
 import {RoomsCollection} from "../api/RoomsCollection";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PaintBoard from "../ui/PaintBoard";
-import MenuBoards from "../ui/MenuBoards";
+import PaintBoard from "./PaintBoard";
+import MenuBoards from "./MenuBoards";
 import { Meteor } from 'meteor/meteor';
-const removeBoard = ({ _id }) => {
-    Meteor.call('room.remove', _id);
-}
 
 export const App = () => {
     const boards = useTracker(() => {
@@ -15,19 +12,27 @@ export const App = () => {
         return RoomsCollection.find({}).fetch();
     });
     const [roomBoardId, setRoomBoardId] = useState();
+    const removeBoard = ({ _id }) => {
+        Meteor.call('room.remove', _id);
+    }
     const changeBoard = ({ _id }) => {
         setRoomBoardId(boards.find(b=>b._id === _id)._id);
     };
 
     return (
-        <div>
-            <div className="paint">
+        <div className="container">
+            <div className="row">
+                <div className="col-4 col-xxl-4">
                     <MenuBoards boards={boards} changeBoard={changeBoard} removeBoard={removeBoard}/>
+                </div>
+
+                <div className="col-8 col-xxl-8">
                     {
                         roomBoardId !== undefined
                             ? <PaintBoard key={'PaintBoard'+roomBoardId} board={boards.find(b => b._id === roomBoardId)} />
-                            : <div>Выберите комнату</div>
+                            : <div><h1>Выберите комнату</h1></div>
                     }
+                </div>
             </div>
         </div>
     );

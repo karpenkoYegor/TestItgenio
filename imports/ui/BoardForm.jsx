@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import Button from "react-bootstrap/Button";
-import Form from 'react-bootstrap/Form';
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
+
 const BoardForm = () => {
     const [text, setText] = useState("")
     const handleSubmit = e => {
@@ -14,23 +13,24 @@ const BoardForm = () => {
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Text className="text-muted">
-                    Название комнаты
-                </Form.Text>
-                <Form.Control
-                    type="input"
-                    placeholder="Введите название"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Создать
-            </Button>
+        <form onSubmit={handleSubmit}>
+            <div className="mb-3 row">
+                <label htmlFor="nameBoardForm" className="form-label">Название комнаты</label>
+                <div className="col col-9">
+                    <input type="input"
+                           className="form-control"
+                           id="nameBoardForm"
+                           placeholder="Введите название"
+                           value={text}
+                           onChange={(e) => setText(e.target.value)}
+                    />
+                </div>
+                <div className="col col-3">
+                    <button type="submit" className="btn btn-primary ">Создать</button>
+                </div>
+            </div>
             <hr/>
-        </Form>
+        </form>
     );
 };
 

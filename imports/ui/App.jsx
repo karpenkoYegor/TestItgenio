@@ -13,7 +13,10 @@ export const App = () => {
     });
     const [roomBoardId, setRoomBoardId] = useState();
     const removeBoard = ({ _id }) => {
-        Meteor.call('room.remove', _id);
+        if(_id !== roomBoardId)
+            Meteor.call('room.remove', _id);
+        else
+            alert("Вы пытаетесь удалить текущую комнату");
     }
     const changeBoard = ({ _id }) => {
         setRoomBoardId(boards.find(b=>b._id === _id)._id);
@@ -28,7 +31,7 @@ export const App = () => {
 
                 <div className="col-8 col-xxl-8">
                     {
-                        roomBoardId !== undefined
+                        roomBoardId !== undefined && roomBoardId !== null
                             ? <PaintBoard key={'PaintBoard'+roomBoardId} board={boards.find(b => b._id === roomBoardId)} />
                             : <div><h1>Выберите комнату</h1></div>
                     }
